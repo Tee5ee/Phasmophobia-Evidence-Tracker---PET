@@ -143,19 +143,15 @@ def PossibleGhosts(evidenceCount: int): #not finished
                 evidenceArray.append(lineString)
         with open("GhostEvidenceFile.txt", "r") as f:
             print("Possible ghosts:\n")
-            for line in f: #for each line in all lines
-                lineArray = line.strip().split(';') #strips "" and splits using ;
-                lineArrayIndex = 1
+            for line in f: 
+                lineArray = line.strip().split(';') 
+                ghostName = lineArray[0] 
                 matchingEvidence = 0
-                for lineElements in range(len(lineArray)):
-                    ghostName = lineArray[0]
-                    for iteration in range(len(evidenceArray)):
-                        if(lineArray[lineArrayIndex] == evidenceArray[iteration]):
-                            matchingEvidence = matchingEvidence + 1
-                            if(matchingEvidence == evidenceCount): #if the number of matching evidence equals to the evidence count
-                                print(f"- {ghostName}")
-                            break
-                        lineArrayIndex = lineArrayIndex + 1
+                for currentEvidence in evidenceArray:
+                    if currentEvidence in lineArray:
+                        matchingEvidence = matchingEvidence + 1
+                if(matchingEvidence == evidenceCount): 
+                    print(f"- {ghostName}")
     else:
         print("All the ghosts!")
 
@@ -163,7 +159,7 @@ def IdentifyGhost(): #not finished
     identificationGhost = []
     with open("InputEvidenceFile.txt", "r") as f: #load evidence into the array
         for line in f:
-            formattedLine = line.strip().strip("'")
+            formattedLine = line.strip()
             identificationGhost.append(formattedLine)
     if(len(identificationGhost) > 4):
         print("Can't be any ghost!")
